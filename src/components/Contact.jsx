@@ -28,7 +28,7 @@ const Contact = () => {
 							</div>
 							<div className="pb-16">
 								<h2 className="py-4">Owen Chan</h2>
-								<p>Front-End Developer</p>
+								<p>Full-stack Developer</p>
 								<p className="py-4">
 									I am avaiable for freelance or full-time positions. Contact me
 									and let's talk.
