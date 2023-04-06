@@ -6,8 +6,42 @@ import { AiOutlineMail } from "react-icons/ai";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { BsPersonLinesFill } from "react-icons/bs";
 import { HiOutlineChevronDoubleUp } from "react-icons/hi";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
+	const [contactInfo, setContactInfo] = useState("+61 04 0004 4495");
+	const [emailInfo, setEmailInfo] = useState("owenkhchan@gmail.com");
+
+	const handleCopyEmail = () => {
+		if (navigator.clipboard) {
+			navigator.clipboard.writeText(emailInfo);
+			toast.success("Email information has been copied to clipboard!", {
+				position: "bottom-right",
+				autoClose: 3000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+			});
+		}
+	};
+
+	const handleCopyContact = () => {
+		if (navigator.clipboard) {
+			navigator.clipboard.writeText(contactInfo);
+			toast.success("Contact information has been copied to clipboard!", {
+				position: "bottom-right",
+				autoClose: 3000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+			});
+		}
+	};
+
 	return (
 		<div id="contact" className="w-full lg:h-screen">
 			<div className="max-w-[1240px] m-auto px-2 py-16 w-full">
@@ -37,16 +71,30 @@ const Contact = () => {
 							<div>
 								<p className="uppercase pt-8">Connect With Me</p>
 								<div className="flex items-center justify-between py-4">
-									<div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
-										<FaLinkedinIn />
-									</div>
-									<div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
-										<FaGithub />
-									</div>
-									<div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
+									<Link
+										target="_blank"
+										href="https://www.linkedin.com/in/owen-chan-993933251/"
+									>
+										<div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
+											<FaLinkedinIn />
+										</div>
+									</Link>
+
+									<Link target="_blank" href="https://github.com/owenkhchan">
+										<div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
+											<FaGithub />
+										</div>
+									</Link>
+									<div
+										onClick={handleCopyEmail}
+										className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300"
+									>
 										<AiOutlineMail />
 									</div>
-									<div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
+									<div
+										onClick={handleCopyContact}
+										className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300"
+									>
 										<BsPersonLinesFill />
 									</div>
 								</div>
@@ -121,6 +169,7 @@ const Contact = () => {
 					</Link>
 				</div>
 			</div>
+			<ToastContainer />
 		</div>
 	);
 };

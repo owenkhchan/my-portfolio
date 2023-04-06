@@ -5,6 +5,8 @@ import Navlogo from "../assets/navlogo.png";
 import { AiOutlineClose, AiOutlineMail, AiOutlineMenu } from "react-icons/ai";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { BsPersonLinesFill } from "react-icons/bs";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Navbar = () => {
 	const [nav, setNav] = useState(false);
@@ -24,6 +26,37 @@ const Navbar = () => {
 		};
 		window.addEventListener("scroll", handleShadow);
 	}, []);
+
+	const [contactInfo, setContactInfo] = useState("+61 04 0004 4495");
+	const [emailInfo, setEmailInfo] = useState("owenkhchan@gmail.com");
+
+	const handleCopyEmail = () => {
+		if (navigator.clipboard) {
+			navigator.clipboard.writeText(emailInfo);
+			toast.success("Email information has been copied to clipboard!", {
+				position: "bottom-right",
+				autoClose: 3000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+			});
+		}
+	};
+
+	const handleCopyContact = () => {
+		if (navigator.clipboard) {
+			navigator.clipboard.writeText(contactInfo);
+			toast.success("Contact information has been copied to clipboard!", {
+				position: "bottom-right",
+				autoClose: 3000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+			});
+		}
+	};
 
 	return (
 		<div
@@ -112,16 +145,30 @@ const Navbar = () => {
 								Connect with me
 							</p>
 							<div className="flex item-center justify-between my-4 sm:w-[80%]">
-								<div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-									<FaLinkedinIn />
-								</div>
-								<div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
-									<FaGithub />
-								</div>
-								<div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+								<Link
+									target="_blank"
+									href="https://www.linkedin.com/in/owen-chan-993933251/"
+								>
+									<div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+										<FaLinkedinIn />
+									</div>
+								</Link>
+
+								<Link target="_blank" href="https://github.com/owenkhchan">
+									<div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+										<FaGithub />
+									</div>
+								</Link>
+								<div
+									onClick={handleCopyEmail}
+									className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300"
+								>
 									<AiOutlineMail />
 								</div>
-								<div className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300">
+								<div
+									onClick={handleCopyContact}
+									className="rounded-full shadow-lg shadow-gray-400 p-3 cursor-pointer hover:scale-105 ease-in duration-300"
+								>
 									<BsPersonLinesFill />
 								</div>
 							</div>
@@ -129,6 +176,7 @@ const Navbar = () => {
 					</div>
 				</div>
 			</div>
+			<ToastContainer />
 		</div>
 	);
 };
