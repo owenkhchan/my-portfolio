@@ -42,6 +42,73 @@ const Contact = () => {
 		}
 	};
 
+	const [inputs, setInputs] = useState({
+		name: "",
+		phone: "",
+		email: "",
+		subject: "",
+		message: "",
+	});
+
+	const [form, setForm] = useState("");
+
+	const handleChange = (e) => {
+		setInputs((prev) => ({
+			...prev,
+			[e.target.id]: e.target.value,
+		}));
+	};
+
+	const onSubmitForm = async (e) => {
+		e.preventDefault();
+
+		if (
+			inputs.name &&
+			inputs.email &&
+			inputs.message &&
+			inputs.subject &&
+			inputs.phone
+		) {
+			setForm({ state: "loading" });
+			try {
+				const res = await fetch(`api/contact`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(inputs),
+				});
+
+				const { error } = await res.json();
+
+				if (error) {
+					setForm({
+						state: "error",
+						message: error,
+					});
+					return;
+				}
+
+				setForm({
+					state: "success",
+					message: "Your message was sent successfully.",
+				});
+				setInputs({
+					name: "",
+					email: "",
+					message: "",
+					subject: "",
+					phone: "",
+				});
+			} catch (error) {
+				setForm({
+					state: "error",
+					message: "Something went wrong",
+				});
+			}
+		}
+	};
+
 	return (
 		<div id="contact" className="w-full lg:h-screen">
 			<div className="max-w-[1240px] m-auto px-2 py-16 w-full">
@@ -105,15 +172,19 @@ const Contact = () => {
 					{/* Right */}
 					<div className="col-span-3 w-full h-auto shadow-xl shadow-gray-400 rounded-xl lg:p-4">
 						<div className="p-4">
-							<form>
+							<form onSubmit={(e) => onSubmitForm(e)}>
 								<div className="grid md:grid-cols-2 gap-4 w-full py-2">
 									<div className="flex flex-col">
 										<label htmlFor="" className="uppercase text-sm py-2">
 											Name
 										</label>
 										<input
+											id="name"
 											type="text"
 											className="border-2 rounded-lg p-3 flex border-gray-300"
+											value={inputs.name}
+											onChange={handleChange}
+											required
 										/>
 									</div>
 									<div className="flex flex-col">
@@ -121,8 +192,12 @@ const Contact = () => {
 											Phone Number
 										</label>
 										<input
+											id="phone"
 											type="text"
 											className="border-2 rounded-lg p-3 flex border-gray-300"
+											value={inputs.phone}
+											onChange={handleChange}
+											required
 										/>
 									</div>
 								</div>
@@ -131,8 +206,12 @@ const Contact = () => {
 										Email
 									</label>
 									<input
+										id="email"
 										type="email"
 										className="border-2 rounded-lg p-3 flex border-gray-300"
+										value={inputs.email}
+										onChange={handleChange}
+										required
 									/>
 								</div>
 								<div className="flex flex-col py-2">
@@ -140,8 +219,12 @@ const Contact = () => {
 										Subject
 									</label>
 									<input
+										id="subject"
 										type="text"
 										className="border-2 rounded-lg p-3 flex border-gray-300"
+										value={inputs.subject}
+										onChange={handleChange}
+										required
 									/>
 								</div>
 								<div className="flex flex-col py-2">
@@ -149,14 +232,25 @@ const Contact = () => {
 										Message
 									</label>
 									<textarea
+										id="message"
 										type=""
 										className="border-2 rounded-lg p-3 flex border-gray-300"
 										rows={15}
+										value={inputs.message}
+										onChange={handleChange}
+										required
 									></textarea>
 								</div>
 								<button className="w-full p-4 text-gray-100 mt-4">
 									Send Message
 								</button>
+								{form.state === "loading" ? (
+									<div>Sending....</div>
+								) : form.state === "error" ? (
+									<div>{form.message}</div>
+								) : (
+									form.state === "success" && <div>Sent successfully</div>
+								)}
 							</form>
 						</div>
 					</div>
@@ -164,7 +258,7 @@ const Contact = () => {
 				<div className="flex justify-center py-12">
 					<Link href="/">
 						<div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
-							<HiOutlineChevronDoubleUp className="text-[#87CEEB]" size={30} />
+							<HiOutlineChevronDoubleUp className="text-[#87CEEB]" size={15} />
 						</div>
 					</Link>
 				</div>
