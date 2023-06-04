@@ -19,10 +19,11 @@ export default async (req, res) => {
 			from: email,
 			to: process.env.SMTP_USER,
 			subject: `Contact form submission from ${name}`,
-			html: `<p>You have a contact form submission</p><br>
-        <p><strong>Email: </strong> ${email}</p><br>
-        <p><strong>Message: </strong> ${message}</p><br>
-      `,
+			html: `
+			<p><strong>Name: </strong> ${name}</p>
+        	<p><strong>Email: </strong> ${email}</p>
+        	<p><strong>Message: <br></strong> ${message}</p><br>
+      		`,
 		});
 	} catch (error) {
 		return res.status(500).json({ error: error.message || error.toString() });

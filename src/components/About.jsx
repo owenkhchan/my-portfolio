@@ -1,43 +1,106 @@
+import tw from "tailwind-styled-components";
 import React from "react";
 import Image from "next/image";
-import Me from "../assets/me.png";
+import Me from "../assets/realme.jpg";
+import {
+	H2,
+	H3,
+	HeaderWrapper,
+	SubheaderWrapper,
+	Subheaderline,
+	PGrey,
+	PBlack,
+} from "@/styles/components";
 
 const About = () => {
 	return (
-		<div id="about" className="w-full md:h-screen p-2 flex items-center py-16">
-			<div className="max-w-[1240px] m-auto md:grid grid-cols-3 gap-8">
-				<div className="col-span-2">
-					<div className="uppercase text-xl tracking-widest text-[#87CEEB]">
-						About
+		<Wrapper id="about">
+			<HeaderWrapper>
+				<H2>
+					About <span className="text-[#DDB3E3]">me</span>
+				</H2>
+				<SubheaderWrapper>
+					<Subheaderline />
+					<PGrey className="py-2">My Introduction</PGrey>
+					<Subheaderline />
+				</SubheaderWrapper>
+			</HeaderWrapper>
+			<AboutWrapper>
+				<AboutContentWrapper>
+					<div>
+						<H3>Personal Info</H3>
+						<Subheaderline className="mt-0.5 mx-auto lg:mx-0" />
 					</div>
-					<h2 className="py-4">Who I am</h2>
-					<p className="py-2 text-gray-600">// I am a passionate developer</p>
-					<p className="py-2 text-gray-600">
-						I always crave achieving and gaining more experience via joining all
-						types of activities. I have acquired a significant amount of
-						programming skill like C++, Python, Javascript etc. I used the
-						techniques in several different projects like developing the mobile
-						apps with swift or Flutter, using CakePHP or Next JS to develop
-						website for the real life client, using CSS and JavaScript to create
-						website with different animations.
-					</p>
-					<p className="py-2 text-gray-600">
-						As I am passionate about IT, I have participated in different IT
-						related jobs and activities such as I participated in several
-						competitions of developing the mobile apps. I also worked for a
-						part-time employee in a IT industry which related to hardware
-						installation.
-					</p>
-					<p className="py-2 text-gray-600 underline cursor-pointer">
-						{/* Check out some of my latest Projects */}
-					</p>
-				</div>
-				<div className="w-full h-auto m-auto shadow-xl shadow-gray-400 rounded-xl flex items-center justify-center p-4 hover:scale-105 ease-in duration-300">
-					<Image src={Me} alt="/" />
-				</div>
-			</div>
-		</div>
+					<AboutInfoWrapper>
+						<PBlack>
+							First Name: <span className="font-bold">Owen</span>
+						</PBlack>
+						<PBlack>
+							Last Name: <span className="font-bold">Chan</span>
+						</PBlack>
+						<PBlack>
+							Age: <span className="font-bold">21 Years</span>
+						</PBlack>
+						<PBlack>
+							Nationality: <span className="font-bold">Hong Kong</span>
+						</PBlack>
+						<PBlack>
+							Freelance: <span className="font-bold">Available</span>
+						</PBlack>
+						<PBlack>
+							Full-time: <span className="font-bold">Available</span>
+						</PBlack>
+						<PBlack>
+							Phone: <span className="font-bold">04 0004 4495</span>
+						</PBlack>
+						<PBlack>
+							Email: <span className="font-bold">owenkhchan@gmail.com</span>
+						</PBlack>
+						<PBlack className="md:col-span-2">
+							Languages:{" "}
+							<span className="font-bold">Chinese, Cantonese, English</span>
+						</PBlack>
+					</AboutInfoWrapper>
+				</AboutContentWrapper>
+				<Image
+					src={Me}
+					alt="me"
+					className="object-cover col-span-2 lg:col-span-1 mx-auto lg:mx-0 border-8 border-[#F0F0F0] rounded-md hover:scale-110 duration-200"
+					style={{ width: "auto", height: "60vh" }}
+				/>
+			</AboutWrapper>
+		</Wrapper>
 	);
 };
 
 export default About;
+
+export const Wrapper = tw.div`
+	w-full
+	min-h-screen	
+	flex
+	flex-col
+	justify-center
+`;
+
+const AboutWrapper = tw.div`
+	grid
+	lg:grid-cols-3
+	gap-4
+	mt-8
+`;
+
+const AboutContentWrapper = tw.div`
+	col-span-2
+	text-center
+	lg:text-left
+`;
+
+const AboutInfoWrapper = tw.div`
+	grid
+	grid-cols-1	
+	md:grid-cols-2
+	gap-x-5
+	gap-y-8
+	py-8
+`;

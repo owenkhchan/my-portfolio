@@ -1,52 +1,25 @@
+import tw from "tailwind-styled-components";
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
-import Me from "../assets/realme.jpg";
-import { AiOutlineMail } from "react-icons/ai";
-import { FaLinkedinIn, FaGithub } from "react-icons/fa";
+import { AiOutlineMail, AiFillLinkedin } from "react-icons/ai";
+import { FaGithub } from "react-icons/fa";
 import { BsPersonLinesFill } from "react-icons/bs";
-import { HiOutlineChevronDoubleUp } from "react-icons/hi";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {
+	H2,
+	H3,
+	HeaderWrapper,
+	SubheaderWrapper,
+	Subheaderline,
+	PGrey,
+	PBlack,
+	Button,
+} from "@/styles/components";
 
 const Contact = () => {
-	const [contactInfo, setContactInfo] = useState("+61 04 0004 4495");
-	const [emailInfo, setEmailInfo] = useState("owenkhchan@gmail.com");
-
-	const handleCopyEmail = () => {
-		if (navigator.clipboard) {
-			navigator.clipboard.writeText(emailInfo);
-			toast.success("Email information has been copied to clipboard!", {
-				position: "bottom-right",
-				autoClose: 3000,
-				hideProgressBar: true,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-			});
-		}
-	};
-
-	const handleCopyContact = () => {
-		if (navigator.clipboard) {
-			navigator.clipboard.writeText(contactInfo);
-			toast.success("Contact information has been copied to clipboard!", {
-				position: "bottom-right",
-				autoClose: 3000,
-				hideProgressBar: true,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-			});
-		}
-	};
-
 	const [inputs, setInputs] = useState({
 		name: "",
-		phone: "",
 		email: "",
-		subject: "",
 		message: "",
 	});
 
@@ -62,13 +35,7 @@ const Contact = () => {
 	const onSubmitForm = async (e) => {
 		e.preventDefault();
 
-		if (
-			inputs.name &&
-			inputs.email &&
-			inputs.message &&
-			inputs.subject &&
-			inputs.phone
-		) {
+		if (inputs.name && inputs.email && inputs.message) {
 			setForm({ state: "loading" });
 			try {
 				const res = await fetch(`api/contact`, {
@@ -97,8 +64,6 @@ const Contact = () => {
 					name: "",
 					email: "",
 					message: "",
-					subject: "",
-					phone: "",
 				});
 			} catch (error) {
 				setForm({
@@ -110,162 +75,180 @@ const Contact = () => {
 	};
 
 	return (
-		<div id="contact" className="w-full lg:h-screen">
-			<div className="max-w-[1240px] m-auto px-2 py-16 w-full">
-				<p className="text-xl tracking-widest uppercase text-[#87CEEB]">
-					Contact
-				</p>
-				<h2 className="py-4">Get In Touch</h2>
-				<div className="grid lg:grid-cols-5 gap-8">
-					{/* Left */}
-					<div className="col-span-3 lg:col-span-2 w-full h-full shadow-xl shadow-gray-400 rounded-xl p-4">
-						<div className="lg:p-4 h-full">
-							<div>
-								<Image
-									className="rounded-xl hover:scale-105 ease-in duration-300"
-									src={Me}
-									alt="/"
-								/>
-							</div>
-							<div className="pb-16">
-								<h2 className="py-4">Owen Chan</h2>
-								<p>Full-stack Developer</p>
-								<p className="py-4">
-									I am avaiable for freelance or full-time positions. Contact me
-									and let's talk.
-								</p>
-							</div>
-							<div>
-								<p className="uppercase pt-8">Connect With Me</p>
-								<div className="flex items-center justify-between py-4">
-									<Link
-										target="_blank"
-										href="https://www.linkedin.com/in/owen-chan-993933251/"
-									>
-										<div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
-											<FaLinkedinIn />
-										</div>
-									</Link>
+		<Wrapper id="contact">
+			<HeaderWrapper>
+				<H2>Contact me</H2>
+				<SubheaderWrapper>
+					<Subheaderline />
+					<PGrey className="py-2">Let's chat</PGrey>
+					<Subheaderline />
+				</SubheaderWrapper>
+			</HeaderWrapper>
+			<ContactWrapper>
+				{/* Left */}
+				<LeftWrapper>
+					<H3 className="text-center lg:text-left">Get in touch</H3>
+					<Subheaderline className="mt-0.5 mx-auto lg:mx-0" />
+					<PBlack className="mt-4 text-center lg:text-left">
+						Feel free to reach out to me for any enquiries or opportunities.
+					</PBlack>
+					<div className="pt-12 flex flex-col gap-6 items-center lg:items-start">
+						<CardWrapper>
+							<AiOutlineMail size={35} />
+							<PGrey>owenkhchan@gmail.com</PGrey>
+						</CardWrapper>
 
-									<Link target="_blank" href="https://github.com/owenkhchan">
-										<div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
-											<FaGithub />
-										</div>
-									</Link>
-									<div
-										onClick={handleCopyEmail}
-										className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300"
-									>
-										<AiOutlineMail />
-									</div>
-									<div
-										onClick={handleCopyContact}
-										className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300"
-									>
-										<BsPersonLinesFill />
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+						<CardWrapper>
+							<BsPersonLinesFill size={35} />
+							<PGrey>+61 04 0004 4495</PGrey>
+						</CardWrapper>
 
-					{/* Right */}
-					<div className="col-span-3 w-full h-auto shadow-xl shadow-gray-400 rounded-xl lg:p-4">
-						<div className="p-4">
-							<form onSubmit={(e) => onSubmitForm(e)}>
-								<div className="grid md:grid-cols-2 gap-4 w-full py-2">
-									<div className="flex flex-col">
-										<label htmlFor="" className="uppercase text-sm py-2">
-											Name
-										</label>
-										<input
-											id="name"
-											type="text"
-											className="border-2 rounded-lg p-3 flex border-gray-300"
-											value={inputs.name}
-											onChange={handleChange}
-											required
-										/>
-									</div>
-									<div className="flex flex-col">
-										<label htmlFor="" className="uppercase text-sm py-2">
-											Phone Number
-										</label>
-										<input
-											id="phone"
-											type="text"
-											className="border-2 rounded-lg p-3 flex border-gray-300"
-											value={inputs.phone}
-											onChange={handleChange}
-											required
-										/>
-									</div>
-								</div>
-								<div className="flex flex-col py-2">
-									<label htmlFor="" className="uppercase text-sm py-2">
-										Email
-									</label>
-									<input
-										id="email"
-										type="email"
-										className="border-2 rounded-lg p-3 flex border-gray-300"
-										value={inputs.email}
-										onChange={handleChange}
-										required
-									/>
-								</div>
-								<div className="flex flex-col py-2">
-									<label htmlFor="" className="uppercase text-sm py-2">
-										Subject
-									</label>
-									<input
-										id="subject"
-										type="text"
-										className="border-2 rounded-lg p-3 flex border-gray-300"
-										value={inputs.subject}
-										onChange={handleChange}
-										required
-									/>
-								</div>
-								<div className="flex flex-col py-2">
-									<label htmlFor="" className="uppercase text-sm py-2">
-										Message
-									</label>
-									<textarea
-										id="message"
-										type=""
-										className="border-2 rounded-lg p-3 flex border-gray-300"
-										rows={15}
-										value={inputs.message}
-										onChange={handleChange}
-										required
-									></textarea>
-								</div>
-								<button className="w-full p-4 text-gray-100 mt-4">
-									Send Message
-								</button>
-								{form.state === "loading" ? (
-									<div>Sending....</div>
-								) : form.state === "error" ? (
-									<div>{form.message}</div>
-								) : (
-									form.state === "success" && <div>Sent successfully</div>
-								)}
-							</form>
-						</div>
+						<CardWrapper>
+							<AiFillLinkedin size={35} />
+							<PGrey>
+								<Link
+									href="https://www.linkedin.com/in/owen-chan-993933251/"
+									target="_blank"
+								>
+									www.linkedin.com/in/owen-chan-993933251/
+								</Link>
+							</PGrey>
+						</CardWrapper>
+
+						<CardWrapper>
+							<FaGithub size={35} />
+							<PGrey>
+								<Link href="https://github.com/owenkhchan" target="_blank">
+									https://github.com/owenkhchan
+								</Link>
+							</PGrey>
+						</CardWrapper>
 					</div>
-				</div>
-				<div className="flex justify-center py-12">
-					<Link href="/">
-						<div className="rounded-full shadow-lg shadow-gray-400 p-6 cursor-pointer hover:scale-110 ease-in duration-300">
-							<HiOutlineChevronDoubleUp className="text-[#87CEEB]" size={15} />
-						</div>
-					</Link>
-				</div>
-			</div>
-			<ToastContainer />
-		</div>
+				</LeftWrapper>
+
+				{/* Right */}
+				<ContactFormWrapper>
+					<form onSubmit={(e) => onSubmitForm(e)}>
+						<ContactFormItem>
+							<Label>Name</Label>
+							<Input
+								id="name"
+								type="text"
+								value={inputs.name}
+								onChange={handleChange}
+								required
+							/>
+						</ContactFormItem>
+						<ContactFormItem>
+							<Label>Email</Label>
+							<Input
+								id="email"
+								type="email"
+								value={inputs.email}
+								onChange={handleChange}
+								required
+							/>
+						</ContactFormItem>
+						<ContactFormItem>
+							<Label>Message</Label>
+							<Textarea
+								id="message"
+								rows={8}
+								value={inputs.message}
+								onChange={handleChange}
+								required
+							></Textarea>
+						</ContactFormItem>
+						<Button className="w-full p-4 mt-4">Send Message</Button>
+						{form.state === "loading" ? (
+							<AlertArea>Sending....</AlertArea>
+						) : form.state === "error" ? (
+							<AlertArea className="bg-red-100 border-red-300 text-red-500">
+								{form.message}
+							</AlertArea>
+						) : (
+							form.state === "success" && (
+								<AlertArea className="bg-green-100 border-green-300 text-green-500">
+									Sent successfully
+								</AlertArea>
+							)
+						)}
+					</form>
+				</ContactFormWrapper>
+			</ContactWrapper>
+		</Wrapper>
 	);
 };
 
 export default Contact;
+
+export const Wrapper = tw.div`
+	w-full
+	min-h-screen	
+	flex
+	flex-col
+	justify-center
+`;
+
+export const LeftWrapper = tw.div`
+	col-span-3
+	lg:col-span-2
+	w-full
+	h-full
+	
+`;
+
+export const CardWrapper = tw.div`
+	flex
+	flex-row
+	gap-4
+	items-center	
+`;
+
+export const ContactWrapper = tw.div`
+	grid
+	lg:grid-cols-5
+	gap-8
+	mt-8
+`;
+
+export const ContactFormWrapper = tw.div`
+	col-span-3
+	w-full
+	h-auto
+`;
+
+export const ContactFormItem = tw.div`
+	flex 
+	flex-col
+	mb-4
+`;
+
+export const Label = tw.label`
+	text-normal
+`;
+
+export const Input = tw.input`
+	border
+	rounded-lg
+	p-3
+`;
+
+export const Textarea = tw.textarea`
+	border
+	rounded-lg
+	py-2
+	px-4
+`;
+
+export const AlertArea = tw.div`
+	w-full
+	border-2
+	rounded-md
+	mt-2
+	py-2
+	text-center
+	bg-gray-100
+	border-gray-300
+	text-gray-500
+`;

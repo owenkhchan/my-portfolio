@@ -1,142 +1,91 @@
+import tw from "tailwind-styled-components";
 import React from "react";
-import Image from "next/image";
-import images from "./ImageData";
+import {
+	H2,
+	HeaderWrapper,
+	SubheaderWrapper,
+	Subheaderline,
+	PGrey,
+} from "@/styles/components";
 
 const Skills = () => {
 	return (
-		<div id="skills" className="w-full lg:h-screen p-2">
-			<div className="max-w-[1240px] mx-auto flex flex-col justify-center h-full">
-				<p className="text-xl tracking-widest uppercase text-[#87CEEB]">
-					Skills
-				</p>
-				<h2 className="py-4">What I Can Do</h2>
-				<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-					<div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-						<div className="grid grid-cols-2 gap-4 justify-center items-center">
-							<div className="m-auto">
-								<Image
-									src={images["html.png"]}
-									alt="/"
-									width={64}
-									height={64}
-								/>
-							</div>
-							<div className="flex flex-col items-center justify-center">
-								<h3>HTML</h3>
-							</div>
-						</div>
-					</div>
+		<Wrapper id="skills">
+			<HeaderWrapper>
+				<H2>Skills</H2>
+				<SubheaderWrapper>
+					<Subheaderline />
+					<PGrey className="py-2">My Technical Skills</PGrey>
+					<Subheaderline />
+				</SubheaderWrapper>
+			</HeaderWrapper>
+			<div className="grid lg:grid-cols-2 lg:gap-16">
+				{/* Front-end Development */}
+				<SkillWrapper>
+					<SkillHeaderWrapper>Front-end Development</SkillHeaderWrapper>
+					<SkillContentWrapper>
+						<h3>HTML</h3>
+						<h3>CSS</h3>
+						<h3>JavaScript</h3>
+						<h3>ReactJS</h3>
+						<h3>NextJS</h3>
+						<h3>TailwindCSS</h3>
+						<h3>Bootstrap</h3>
+					</SkillContentWrapper>
+				</SkillWrapper>
 
-					<div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-						<div className="grid grid-cols-2 gap-4 justify-center items-center">
-							<div className="m-auto">
-								<Image src={images["css.png"]} alt="/" width={64} height={64} />
-							</div>
-							<div className="flex flex-col items-center justify-center">
-								<h3>CSS</h3>
-							</div>
-						</div>
-					</div>
-
-					<div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-						<div className="grid grid-cols-2 gap-4 justify-center items-center">
-							<div className="m-auto">
-								<Image
-									src={images["javascript.png"]}
-									alt="/"
-									width={64}
-									height={64}
-								/>
-							</div>
-							<div className="flex flex-col items-center justify-center">
-								<h3>JavaScript</h3>
-							</div>
-						</div>
-					</div>
-
-					<div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-						<div className="grid grid-cols-2 gap-4 justify-center items-center">
-							<div className="m-auto">
-								<Image
-									src={images["react.png"]}
-									alt="/"
-									width={64}
-									height={64}
-								/>
-							</div>
-							<div className="flex flex-col items-center justify-center">
-								<h3>React</h3>
-							</div>
-						</div>
-					</div>
-
-					<div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-						<div className="grid grid-cols-2 gap-4 justify-center items-center">
-							<div className="m-auto">
-								<Image
-									src={images["nextjs.png"]}
-									alt="/"
-									width={64}
-									height={64}
-								/>
-							</div>
-							<div className="flex flex-col items-center justify-center">
-								<h3>NextJS</h3>
-							</div>
-						</div>
-					</div>
-
-					<div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-						<div className="grid grid-cols-2 gap-4 justify-center items-center">
-							<div className="m-auto">
-								<Image
-									src={images["tailwind.png"]}
-									alt="/"
-									width={64}
-									height={64}
-								/>
-							</div>
-							<div className="flex flex-col items-center justify-center">
-								<h3>Tailwind CSS</h3>
-							</div>
-						</div>
-					</div>
-
-					<div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-						<div className="grid grid-cols-2 gap-4 justify-center items-center">
-							<div className="m-auto">
-								<Image
-									src={images["firebase.png"]}
-									alt="/"
-									width={64}
-									height={64}
-								/>
-							</div>
-							<div className="flex flex-col items-center justify-center">
-								<h3>Firebase</h3>
-							</div>
-						</div>
-					</div>
-
-					<div className="p-6 shadow-xl rounded-xl hover:scale-105 ease-in duration-300">
-						<div className="grid grid-cols-2 gap-4 justify-center items-center">
-							<div className="m-auto">
-								<Image
-									src={images["github.png"]}
-									alt="/"
-									width={64}
-									height={64}
-								/>
-							</div>
-							<div className="flex flex-col items-center justify-center">
-								<h3>GitHub</h3>
-							</div>
-						</div>
-					</div>
-				</div>
+				{/* Back-end Development */}
+				<SkillWrapper>
+					<SkillHeaderWrapper>Back-end Development</SkillHeaderWrapper>
+					<SkillContentWrapper>
+						<h3>PHP</h3>
+						<h3>Python</h3>
+						<h3>SQL</h3>
+						<h3>MySQL</h3>
+						<h3>Oracle SQL</h3>
+						<h3>Firebase</h3>
+						<h3>AWS</h3>
+					</SkillContentWrapper>
+				</SkillWrapper>
 			</div>
-		</div>
+		</Wrapper>
 	);
 };
 
 export default Skills;
+
+export const Wrapper = tw.div`
+	w-full
+	min-h-screen	
+	flex
+	flex-col
+	justify-center
+`;
+
+const SkillWrapper = tw.div`
+	border-2
+	rounded-xl
+	hover:scale-105
+	ease-in
+	duration-200
+	mt-16
+`;
+
+const SkillHeaderWrapper = tw.div`
+	flex
+	justify-center
+	items-center
+	text-lg
+	rounded-t-xl
+	p-8
+`;
+
+const SkillContentWrapper = tw.div`
+	flex
+	flex-col
+	items-center
+	justify-center
+	h-fit
+	pb-8
+	space-y-2
+`;
